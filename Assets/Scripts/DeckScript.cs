@@ -18,21 +18,21 @@ public class DeckScript : MonoBehaviour
     // Update is called once per frame
     void GetCardValues()
     {
-        int num = 0;
         for (int i = 0; i < cardSprites.Length; i++)
         {
-            num = i;
-            // count up to the amount of cards, 52
-            // module to get the deck
-            num %= 13;
-            if (num > 10 || num == 0)
+            int num = i % 13 + 1;  // Ranges from 1 to 13
+
+            // Face cards (Jack, Queen, King) should have a value of 10
+            if (num > 10)
             {
                 num = 10;
             }
-            cardVal[i] = num++;
+
+            cardVal[i] = num;
         }
-        currentIndex = 1;
+        currentIndex = 0;  // Start dealing from the first card
     }
+
     public void Shuffle()
     {
         for (int i = cardSprites.Length - 1; i > 0; i--)
@@ -46,6 +46,7 @@ public class DeckScript : MonoBehaviour
             cardVal[i] = cardVal[j];
             cardVal[j] = value;
         }
+        currentIndex = 0;
     }
     public int DealCard(CardScript cardScript)
     {
