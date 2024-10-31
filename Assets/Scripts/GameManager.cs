@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.RestService;
 using UnityEngine;
 using UnityEngine.UI;
 public class GameManager : MonoBehaviour
@@ -9,6 +10,11 @@ public class GameManager : MonoBehaviour
     public Button hitBtn;
     public Button standBtn;
     public Button betBtn;
+
+    // Access the player and dealers script
+
+    public PlayerScript playerScript;
+    public PlayerScript dealerScript;
     void Start()
     {
         // Add Click listerns
@@ -18,7 +24,9 @@ public class GameManager : MonoBehaviour
     } 
     private void DealClicked()
     {
-        throw new NotImplementedException();
+        GameObject.Find("DECK").GetComponent<DeckScript>().Shuffle();
+        playerScript.StartHand();
+        dealerScript.StartHand();
     }
     private void HitClicked()
     {
